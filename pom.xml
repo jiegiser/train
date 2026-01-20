@@ -23,6 +23,7 @@
     </developers>
     <modules>
         <module>train-member</module>
+        <module>common</module>
     </modules>
     <scm>
         <connection/>
@@ -52,6 +53,12 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>5.8.43</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jiegiser</groupId>
+                <artifactId>common</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

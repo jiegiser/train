@@ -1,4 +1,4 @@
-package org.jiegiser.train.member.aspect;
+package org.jiegiser.train.common.aspect;
 
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson2.JSON;
@@ -68,6 +68,7 @@ public class LogAspect {
                 return;
             }
 
+            // 增加日志流水号
             MDC.put("LOG_ID", System.currentTimeMillis() + RandomUtil.randomString(3));
 
             HttpServletRequest request = attributes.getRequest();
@@ -136,7 +137,7 @@ public class LogAspect {
         }
 
         try {
-            // 使用Fastjson2序列化，并应用敏感字段过滤器
+            // 使用 Fastjson2 序列化，并应用敏感字段过滤器
             String jsonStr = JSON.toJSONString(filteredArgs, sensitiveFieldFilter);
             LOG.info("请求参数: {}", jsonStr);
         } catch (Exception e) {
@@ -156,7 +157,7 @@ public class LogAspect {
         }
 
         try {
-            // 使用Fastjson2序列化，并应用敏感字段过滤器
+            // 使用 Fastjson2 序列化，并应用敏感字段过滤器
             String jsonStr = JSON.toJSONString(result, sensitiveFieldFilter);
 
             // 控制日志长度，避免过长
@@ -173,7 +174,7 @@ public class LogAspect {
     }
 
     /**
-     * 获取客户端IP地址（Spring Boot 3.x兼容）
+     * 获取客户端 IP 地址（Spring Boot 3.x 兼容）
      */
     private String getClientIp(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
@@ -194,7 +195,7 @@ public class LogAspect {
             ip = request.getRemoteAddr();
         }
 
-        // 多个IP时取第一个
+        // 多个 IP 时取第一个
         if (ip != null && ip.contains(",")) {
             ip = ip.split(",")[0].trim();
         }
@@ -203,7 +204,7 @@ public class LogAspect {
     }
 
     /**
-     * 替代原PropertyPreFilters的方案（兼容旧代码模式）
+     * 替代原 PropertyPreFilters 的方案（兼容旧代码模式）
      */
     private SimplePropertyPreFilter createPropertyPreFilter(String... excludes) {
         SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
