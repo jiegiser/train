@@ -24,6 +24,7 @@
     <modules>
         <module>train-member</module>
         <module>common</module>
+        <module>getway</module>
     </modules>
     <scm>
         <connection/>
