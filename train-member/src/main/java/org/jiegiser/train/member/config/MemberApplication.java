@@ -1,5 +1,6 @@
 package org.jiegiser.train.member.config;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +15,7 @@ import java.util.function.Consumer;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"org.jiegiser"})
+@MapperScan("org.jiegiser.train.member.mapper")
 public class MemberApplication {
     private static final Logger LOG = LoggerFactory.getLogger(MemberApplication.class);
     public static void main(String[] args) {
