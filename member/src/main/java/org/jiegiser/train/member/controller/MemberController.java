@@ -1,6 +1,8 @@
 package org.jiegiser.train.member.controller;
 
 import jakarta.annotation.Resource;
+import org.jiegiser.train.common.resq.CommonResp;
+import org.jiegiser.train.member.req.MemberRegistryReq;
 import org.jiegiser.train.member.service.MemberService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,12 +15,16 @@ public class MemberController {
     @Resource
     private MemberService memberService;
     @GetMapping("/count")
-    public Integer Count() {
-        return Math.toIntExact(memberService.count());
+    public CommonResp<Integer> Count() {
+        int count = memberService.count();
+        CommonResp<Integer> resp = new CommonResp<>();
+        resp.setContent(count);
+        return resp;
     }
 
     @PostMapping("/registry")
-    public Long registry(String mobile) {
-        return memberService.registry(mobile);
+    public CommonResp<Long> registry(MemberRegistryReq req) {
+        long registry = memberService.registry(req);
+        return new CommonResp<>(registry);
     }
 }

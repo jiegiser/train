@@ -5,6 +5,7 @@ import jakarta.annotation.Resource;
 import org.jiegiser.train.member.domain.Member;
 import org.jiegiser.train.member.domain.MemberExample;
 import org.jiegiser.train.member.mapper.MemberMapper;
+import org.jiegiser.train.member.req.MemberRegistryReq;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +17,9 @@ public class MemberService {
      public int count() {
          return Math.toIntExact(memberMapper.countByExample(null));
      }
-     public long registry(String mobile) {
+     public long registry(MemberRegistryReq req) {
          MemberExample memberExample = new MemberExample();
-         memberExample.createCriteria().andMobileEqualTo(mobile);
+         memberExample.createCriteria().andMobileEqualTo(req.getMobile());
          List<Member> list = memberMapper.selectByExample(memberExample);
          if (CollUtil.isNotEmpty(list)) {
 //             return list.get(0).getId();
@@ -27,7 +28,7 @@ public class MemberService {
 
          Member member = new Member();
          member.setId(System.currentTimeMillis());
-         member.setMobile(mobile);
+         member.setMobile(req.getMobile());
          memberMapper.insert(member);
          return member.getId();
      }

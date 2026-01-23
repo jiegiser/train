@@ -35,10 +35,10 @@ public class LogAspect {
 
     private final static Logger LOG = LoggerFactory.getLogger(LogAspect.class);
 
-    // 定义敏感字段集合（可扩展）
+    // 定义敏感字段集合（可扩展）暂时去除 "mobile"
     private static final Set<String> SENSITIVE_FIELDS = new HashSet<>(Arrays.asList(
             "password", "pwd", "passwd", "secret", "token",
-            "idCard", "idcard", "cardNo", "mobile", "phone",
+            "idCard", "idcard", "cardNo", "phone",
             "email", "bankCard", "creditCard", "cvv"
     ));
 
