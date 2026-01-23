@@ -1,7 +1,7 @@
 package org.jiegiser.train.member.controller;
 
 import jakarta.annotation.Resource;
-import org.jiegiser.train.member.mapper.MemberMapper;
+import org.jiegiser.train.member.service.MemberService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/member")
 public class MemberController {
     @Resource
-    private MemberMapper memberMapper;
+    private MemberService memberService;
     @GetMapping("/count")
     public Integer Count() {
-        return memberMapper.count();
+        return Math.toIntExact(memberService.count());
     }
 }
