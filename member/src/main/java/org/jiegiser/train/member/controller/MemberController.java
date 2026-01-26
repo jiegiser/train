@@ -1,6 +1,7 @@
 package org.jiegiser.train.member.controller;
 
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.jiegiser.train.common.resq.CommonResp;
 import org.jiegiser.train.member.req.MemberRegistryReq;
 import org.jiegiser.train.member.service.MemberService;
@@ -23,7 +24,7 @@ public class MemberController {
     }
 
     @PostMapping("/registry")
-    public CommonResp<Long> registry(MemberRegistryReq req) {
+    public CommonResp<Long> registry(@Valid MemberRegistryReq req) {
         long registry = memberService.registry(req);
         return new CommonResp<>(registry);
     }
