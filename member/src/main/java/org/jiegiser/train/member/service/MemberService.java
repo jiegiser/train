@@ -2,6 +2,7 @@ package org.jiegiser.train.member.service;
 
 import cn.hutool.core.collection.CollUtil;
 import jakarta.annotation.Resource;
+import org.jiegiser.train.common.exception.BusinessException;
 import org.jiegiser.train.member.domain.Member;
 import org.jiegiser.train.member.domain.MemberExample;
 import org.jiegiser.train.member.mapper.MemberMapper;
@@ -9,6 +10,8 @@ import org.jiegiser.train.member.req.MemberRegistryReq;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static org.jiegiser.train.common.exception.BusinessExceptionEnum.MEMBER_MOBILE_EXIST;
 
 @Service
 public class MemberService {
@@ -22,8 +25,7 @@ public class MemberService {
          memberExample.createCriteria().andMobileEqualTo(req.getMobile());
          List<Member> list = memberMapper.selectByExample(memberExample);
          if (CollUtil.isNotEmpty(list)) {
-//             return list.get(0).getId();
-             throw new RuntimeException("手机号已存在");
+             throw new BusinessException(MEMBER_MOBILE_EXIST);
          }
 
          Member member = new Member();
