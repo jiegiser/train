@@ -3,6 +3,7 @@ package org.jiegiser.train.member.service;
 import cn.hutool.core.collection.CollUtil;
 import jakarta.annotation.Resource;
 import org.jiegiser.train.common.exception.BusinessException;
+import org.jiegiser.train.common.util.SnowUtil;
 import org.jiegiser.train.member.domain.Member;
 import org.jiegiser.train.member.domain.MemberExample;
 import org.jiegiser.train.member.mapper.MemberMapper;
@@ -29,7 +30,7 @@ public class MemberService {
          }
 
          Member member = new Member();
-         member.setId(System.currentTimeMillis());
+         member.setId(SnowUtil.getSnowflakeNextId());
          member.setMobile(req.getMobile());
          memberMapper.insert(member);
          return member.getId();
