@@ -4,6 +4,7 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.jiegiser.train.common.resq.CommonResp;
 import org.jiegiser.train.member.req.MemberRegistryReq;
+import org.jiegiser.train.member.req.MemberSendCodeReq;
 import org.jiegiser.train.member.service.MemberService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,5 +28,11 @@ public class MemberController {
     public CommonResp<Long> registry(@Valid MemberRegistryReq req) {
         long registry = memberService.registry(req);
         return new CommonResp<>(registry);
+    }
+
+    @PostMapping("/send-code")
+    public CommonResp<Long> registry(@Valid MemberSendCodeReq req) {
+        memberService.sendCode(req);
+        return new CommonResp<>();
     }
 }
