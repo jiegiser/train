@@ -6,10 +6,7 @@ import org.jiegiser.train.common.resq.CommonResp;
 import org.jiegiser.train.member.req.MemberRegistryReq;
 import org.jiegiser.train.member.req.MemberSendCodeReq;
 import org.jiegiser.train.member.service.MemberService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/member")
@@ -24,12 +21,14 @@ public class MemberController {
         return resp;
     }
 
+    // json body
     @PostMapping("/registry")
-    public CommonResp<Long> registry(@Valid MemberRegistryReq req) {
+    public CommonResp<Long> registry(@Valid @RequestBody MemberRegistryReq req) {
         long registry = memberService.registry(req);
         return new CommonResp<>(registry);
     }
 
+    // formdata body
     @PostMapping("/send-code")
     public CommonResp<Long> registry(@Valid MemberSendCodeReq req) {
         memberService.sendCode(req);

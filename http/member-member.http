@@ -5,9 +5,11 @@ Accept: application/json
 ###
 
 POST http://127.0.0.1:9000/member/member/registry
-Content-Type: application/x-www-form-urlencoded
+Content-Type: application/json
 
-mobile = 444
+{
+  "mobile": "13800138000"
+}
 
 ###
 
