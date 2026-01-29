@@ -94,6 +94,7 @@ public class MemberService {
 
     private Member selectByMobile(String mobile) {
         MemberExample memberExample = new MemberExample();
+        // createCriteria 创建一个查询条件
         memberExample.createCriteria().andMobileEqualTo(mobile);
         List<Member> list = memberMapper.selectByExample(memberExample);
         if (CollUtil.isEmpty(list)) {
