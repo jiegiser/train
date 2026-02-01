@@ -1,7 +1,7 @@
 
 GET http://127.0.0.1:9000/member/member/count
 Accept: application/json
-
+token: 123
 ###
 
 POST http://127.0.0.1:9000/member/member/registry
