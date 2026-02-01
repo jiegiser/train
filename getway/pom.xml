@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <!--    设置 pom 自动更新，在 idea 的 maven 设置，点击自动重新加载设置。勾选在构建脚本发生更改后重新加载项目，选择任何更新点击保存  -->
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
