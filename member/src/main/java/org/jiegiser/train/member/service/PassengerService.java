@@ -51,6 +51,8 @@ public class PassengerService {
 
         log.info("查询页码：{}", req.getPage());
         log.info("每页条数：{}", req.getSize());
+        // 开始分页，页码是从 1 开始；在执行 sql 语句的上一行加上这个代码即可
+        // 对下面一句的 sql 做拦截，增加分页 limit
         PageHelper.startPage(req.getPage(), req.getSize());
         List<Passenger> passengerList = passengerMapper.selectByExample(passengerExample);
 
