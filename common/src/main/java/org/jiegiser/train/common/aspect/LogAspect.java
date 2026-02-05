@@ -1,6 +1,5 @@
 package org.jiegiser.train.common.aspect;
 
-import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.filter.PropertyFilter;
 import com.alibaba.fastjson2.filter.SimplePropertyPreFilter;
@@ -16,7 +15,6 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -67,9 +65,6 @@ public class LogAspect {
                 LOG.warn("无法获取请求属性");
                 return;
             }
-
-            // 增加日志流水号
-            MDC.put("LOG_ID", System.currentTimeMillis() + RandomUtil.randomString(3));
 
             HttpServletRequest request = attributes.getRequest();
             Signature signature = joinPoint.getSignature();

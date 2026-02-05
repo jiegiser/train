@@ -2,7 +2,7 @@ package org.jiegiser.train.member.controller;
 
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
-import org.jiegiser.train.common.resq.CommonResp;
+import org.jiegiser.train.common.resp.CommonResp;
 import org.jiegiser.train.member.req.MemberLoginReq;
 import org.jiegiser.train.member.req.MemberRegistryReq;
 import org.jiegiser.train.member.req.MemberSendCodeReq;

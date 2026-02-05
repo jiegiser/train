@@ -1,7 +1,7 @@
 package org.jiegiser.train.common.controller;
 
 import org.jiegiser.train.common.exception.BusinessException;
-import org.jiegiser.train.common.resq.CommonResp;
+import org.jiegiser.train.common.resp.CommonResp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindException;
