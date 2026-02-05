@@ -56,6 +56,7 @@ public class PassengerService {
         PageHelper.startPage(req.getPage(), req.getSize());
         List<Passenger> passengerList = passengerMapper.selectByExample(passengerExample);
 
+        // 获取分页结果 - 自动生成 count 查询总数
         PageInfo<Passenger> pageInfo = new PageInfo<>(passengerList);
         log.info("总行数：{}", pageInfo.getTotal());
         log.info("总页数：{}", pageInfo.getPages());
