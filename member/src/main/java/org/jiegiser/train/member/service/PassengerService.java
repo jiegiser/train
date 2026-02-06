@@ -28,6 +28,7 @@ public class PassengerService {
     public void save(PassengerSaveReq req) {
         DateTime now = DateTime.now();
         Passenger passenger = BeanUtil.copyProperties(req, Passenger.class);
+        // 是否为编辑
         if (ObjectUtil.isNull(passenger.getId())) {
             // 获取线程本地变量的值
             passenger.setMemberId(LoginMemberContext.getId());
@@ -36,6 +37,7 @@ public class PassengerService {
             passenger.setUpdateTime(now);
             passengerMapper.insert(passenger);
         } else {
+            // 更新
             passenger.setUpdateTime(now);
             passengerMapper.updateByPrimaryKey(passenger);
         }
