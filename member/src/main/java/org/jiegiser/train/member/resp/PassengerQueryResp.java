@@ -10,12 +10,13 @@ public class PassengerQueryResp {
 
     /**
      * id
+     * ToStringSerializer 转换为字符串
      */
     @JsonSerialize(using= ToStringSerializer.class)
     private Long id;
 
     /**
-     * 会员id
+     * 会员 id
      */
     @JsonSerialize(using= ToStringSerializer.class)
     private Long memberId;
