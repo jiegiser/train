@@ -1,9 +1,10 @@
 package org.jiegiser.train.member.req;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.NotBlank;
-
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class PassengerSaveReq {
 
@@ -13,8 +14,9 @@ public class PassengerSaveReq {
     private Long id;
 
     /**
-     * 会员 id
+     * 会员id
      */
+    @NotNull(message = "【会员id】不能为空")
     private Long memberId;
 
     /**

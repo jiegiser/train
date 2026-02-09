@@ -44,6 +44,7 @@
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <spring.boot.version>3.2.9</spring.boot.version>
         <pagehelper-spring-boot-starter.version>2.1.1</pagehelper-spring-boot-starter.version>
+        <dom4j.version>2.2.0</dom4j.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -54,11 +55,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
                 <version>2.0.60</version>
             </dependency>
+
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
@@ -95,6 +98,19 @@
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>${dom4j.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/jaxen/jaxen -->
+            <dependency>
+                <groupId>jaxen</groupId>
+                <artifactId>jaxen</artifactId>
+                <version>${jaxen.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

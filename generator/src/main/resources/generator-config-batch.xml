@@ -30,7 +30,7 @@
 
         <!-- domain类的位置 targetProject是相对pom.xml的路径-->
         <javaModelGenerator targetProject="../batch/src/main/java"
-                            targetPackage="com.jiawa.train.batch.domain"/>
+                            targetPackage="org.jiegiser.train.batch.domain"/>
 
         <!-- mapper xml的位置 targetProject是相对pom.xml的路径 -->
         <sqlMapGenerator targetProject="../batch/src/main/resources"
@@ -38,7 +38,7 @@
 
         <!-- mapper类的位置 targetProject是相对pom.xml的路径 -->
         <javaClientGenerator targetProject="../batch/src/main/java"
-                             targetPackage="com.jiawa.train.batch.mapper"
+                             targetPackage="org.jiegiser.train.batch.mapper"
                              type="XMLMAPPER"/>
 
         <table tableName="member" domainObjectName="Member"/>

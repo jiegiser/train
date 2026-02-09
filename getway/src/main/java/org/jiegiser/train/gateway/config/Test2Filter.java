@@ -1,4 +1,4 @@
-package org.jiegiser.train.gateway.config;// package com.jiawa.train.gateway.config;
+package org.jiegiser.train.gateway.config;
 //
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;

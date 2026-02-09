@@ -7,7 +7,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.jiegiser.train.common.context.LoginMemberContext;
 import org.jiegiser.train.common.resp.PageResp;
 import org.jiegiser.train.common.util.SnowUtil;
 import org.jiegiser.train.member.domain.Passenger;
@@ -28,16 +27,12 @@ public class PassengerService {
     public void save(PassengerSaveReq req) {
         DateTime now = DateTime.now();
         Passenger passenger = BeanUtil.copyProperties(req, Passenger.class);
-        // 是否为编辑
         if (ObjectUtil.isNull(passenger.getId())) {
-            // 获取线程本地变量的值
-            passenger.setMemberId(LoginMemberContext.getId());
             passenger.setId(SnowUtil.getSnowflakeNextId());
             passenger.setCreateTime(now);
             passenger.setUpdateTime(now);
             passengerMapper.insert(passenger);
         } else {
-            // 更新
             passenger.setUpdateTime(now);
             passengerMapper.updateByPrimaryKey(passenger);
         }
@@ -47,9 +42,6 @@ public class PassengerService {
         PassengerExample passengerExample = new PassengerExample();
         passengerExample.setOrderByClause("id desc");
         PassengerExample.Criteria criteria = passengerExample.createCriteria();
-        if (ObjectUtil.isNotNull(req.getMemberId())) {
-            criteria.andMemberIdEqualTo(req.getMemberId());
-        }
 
         log.info("查询页码：{}", req.getPage());
         log.info("每页条数：{}", req.getSize());
@@ -58,7 +50,6 @@ public class PassengerService {
         PageHelper.startPage(req.getPage(), req.getSize());
         List<Passenger> passengerList = passengerMapper.selectByExample(passengerExample);
 
-        // 获取分页结果 - 自动生成 count 查询总数
         PageInfo<Passenger> pageInfo = new PageInfo<>(passengerList);
         log.info("总行数：{}", pageInfo.getTotal());
         log.info("总页数：{}", pageInfo.getPages());

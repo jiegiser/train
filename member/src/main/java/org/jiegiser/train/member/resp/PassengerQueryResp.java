@@ -10,13 +10,12 @@ public class PassengerQueryResp {
 
     /**
      * id
-     * ToStringSerializer 转换为字符串
      */
     @JsonSerialize(using= ToStringSerializer.class)
     private Long id;
 
     /**
-     * 会员 id
+     * 会员id
      */
     @JsonSerialize(using= ToStringSerializer.class)
     private Long memberId;
@@ -38,15 +37,14 @@ public class PassengerQueryResp {
 
     /**
      * 新增时间
-     * 设置日期格式以及时区（前端按照规范进行传入）
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
     /**
      * 修改时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
 
     public Long getId() {
