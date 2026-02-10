@@ -1,0 +1,9 @@
+GET http://localhost:8889/business/test
+Accept: application/json
+
+###
+
+GET http://localhost:9000/business/test
+Accept: application/json
+
+###

@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"org.jiegiser"})
-@MapperScan("org.jiegiser.train.member.mapper")
+@MapperScan("org.jiegiser.train.*.mapper")
 public class MemberApplication {
     private static final Logger LOG = LoggerFactory.getLogger(MemberApplication.class);
     public static void main(String[] args) {
