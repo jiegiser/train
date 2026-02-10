@@ -16,7 +16,7 @@ import java.util.List;
 public class EnumGenerator {
     // static String path = "web/src/assets/js/enums.js";
     // static String path = "admin/src/assets/js/enums.js";
-    static String path = "Web/enums.js";
+    static String path = "Web/js/enums.js";
 
     public static void main(String[] args) {
         StringBuffer bufferObject = new StringBuffer();
@@ -45,7 +45,7 @@ public class EnumGenerator {
         Object[] objects = clazz.getEnumConstants();
         Method name = clazz.getMethod("name");
 
-        // 排除枚举属性和$VALUES，只获取code desc等
+        // 排除枚举属性和 $VALUES，只获取 code desc等
         List<Field> targetFields = new ArrayList<>();
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
@@ -75,7 +75,7 @@ public class EnumGenerator {
         for (int i = 0; i < objects.length; i++) {
             Object obj = objects[i];
 
-            // 将一个枚举值转成JSON对象字符串
+            // 将一个枚举值转成 JSON 对象字符串
             formatJsonObj(bufferArray, targetFields, clazz, obj);
 
             if (i < objects.length - 1) {
