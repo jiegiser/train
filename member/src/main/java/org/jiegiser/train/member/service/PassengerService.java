@@ -7,6 +7,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.jiegiser.train.common.context.LoginMemberContext;
 import org.jiegiser.train.common.resp.PageResp;
 import org.jiegiser.train.common.util.SnowUtil;
 import org.jiegiser.train.member.domain.Passenger;
@@ -28,6 +29,7 @@ public class PassengerService {
         DateTime now = DateTime.now();
         Passenger passenger = BeanUtil.copyProperties(req, Passenger.class);
         if (ObjectUtil.isNull(passenger.getId())) {
+            passenger.setMemberId(LoginMemberContext.getId());
             passenger.setId(SnowUtil.getSnowflakeNextId());
             passenger.setCreateTime(now);
             passenger.setUpdateTime(now);
@@ -42,6 +44,9 @@ public class PassengerService {
         PassengerExample passengerExample = new PassengerExample();
         passengerExample.setOrderByClause("id desc");
         PassengerExample.Criteria criteria = passengerExample.createCriteria();
+        if (ObjectUtil.isNotNull(req.getMemberId())) {
+            criteria.andMemberIdEqualTo(req.getMemberId());
+        }
 
         log.info("查询页码：{}", req.getPage());
         log.info("每页条数：{}", req.getSize());
