@@ -56,7 +56,7 @@ public enum SeatColEnum {
     }
 
     /**
-     * 根据车箱的座位类型，筛选出所有的列，比如车箱类型是一等座，则筛选出columnList={ACDF}
+     * 根据车箱的座位类型，筛选出所有的列，比如车箱类型是一等座，则筛选出 columnList={ACDF}
      */
     public static List<SeatColEnum> getColsByType(String seatType) {
         List<SeatColEnum> colList = new ArrayList<>();
