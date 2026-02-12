@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.jiegiser.train.business.req.TrainQueryReq;
 import org.jiegiser.train.business.req.TrainSaveReq;
 import org.jiegiser.train.business.resp.TrainQueryResp;
+import org.jiegiser.train.business.service.TrainSeatService;
 import org.jiegiser.train.business.service.TrainService;
 import org.jiegiser.train.common.resp.CommonResp;
 import org.jiegiser.train.common.resp.PageResp;
@@ -18,6 +19,9 @@ public class TrainAdminController {
 
     @Resource
     private TrainService trainService;
+
+    @Resource
+    private TrainSeatService trainSeatService;
 
     @PostMapping("/save")
     public CommonResp<Object> save(@Valid @RequestBody TrainSaveReq req) {
@@ -41,5 +45,11 @@ public class TrainAdminController {
     public CommonResp<List<TrainQueryResp>> queryList() {
         List<TrainQueryResp> list = trainService.queryAll();
         return new CommonResp<>(list);
+    }
+
+    @GetMapping("/gen-seat/{trainCode}")
+    public CommonResp<Object> genSeat(@PathVariable String trainCode) {
+        trainSeatService.genTrainSeat(trainCode);
+        return new CommonResp<>();
     }
 }
