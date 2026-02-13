@@ -4,7 +4,7 @@ import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-
+// 这个注解的意思是上一个没有执行完之后不能开始下一个任务；如果不添加这个注解，他会进行并发
 @DisallowConcurrentExecution
 public class TestJob implements Job {
 
