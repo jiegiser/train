@@ -26,6 +26,7 @@
         <module>common</module>
         <module>getway</module>
         <module>generator</module>
+        <module>batch</module>
     </modules>
     <scm>
         <connection/>

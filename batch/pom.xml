@@ -8,11 +8,26 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>org.jiegiser</groupId>
-    <artifactId>business</artifactId>
+    <artifactId>batch</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>business</name>
-    <description>business</description>
-
+    <name>batch</name>
+    <description>batch</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <properties>
+        <java.version>17</java.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.jiegiser</groupId>
