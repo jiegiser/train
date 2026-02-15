@@ -36,11 +36,32 @@ public class JobController {
      * @throws SchedulerException
      */
     @RequestMapping(value = "/run")
-    public CommonResp<Object> run(@RequestBody CronJobReq cronJobReq) throws SchedulerException {
+    public CommonResp<Object> run(@RequestBody CronJobReq cronJobReq) throws SchedulerException, ClassNotFoundException {
         String jobClassName = cronJobReq.getName();
         String jobGroupName = cronJobReq.getGroup();
+
+        // 构造任务键
+        JobKey jobKey = JobKey.jobKey(jobClassName, jobGroupName);
+
+        // 获取调度器实例
+        Scheduler scheduler = schedulerFactoryBean.getScheduler();
+
+        // 检查任务是否已存在，如果不存在则注册
+        if (!scheduler.checkExists(jobKey)) {
+            // 创建任务详情
+            JobDetail jobDetail = JobBuilder.newJob((Class<? extends Job>) Class.forName(jobClassName))
+                    .withIdentity(jobKey)
+                    .storeDurably() // 标记任务为持久化
+                    .build();
+
+            // 注册任务到调度器
+            scheduler.addJob(jobDetail, true); // 第二个参数表示是否覆盖已存在的任务
+        }
+
+        // 触发任务
         LOG.info("手动执行任务开始：{}, {}", jobClassName, jobGroupName);
-        schedulerFactoryBean.getScheduler().triggerJob(JobKey.jobKey(jobClassName, jobGroupName));
+        scheduler.triggerJob(jobKey);
+
         return new CommonResp<>();
     }
 

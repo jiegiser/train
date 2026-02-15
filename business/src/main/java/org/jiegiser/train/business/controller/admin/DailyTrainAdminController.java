@@ -1,15 +1,17 @@
 package org.jiegiser.train.business.controller.admin;
 
-import org.jiegiser.train.common.context.LoginMemberContext;
-import org.jiegiser.train.common.resp.CommonResp;
-import org.jiegiser.train.common.resp.PageResp;
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.jiegiser.train.business.req.DailyTrainQueryReq;
 import org.jiegiser.train.business.req.DailyTrainSaveReq;
 import org.jiegiser.train.business.resp.DailyTrainQueryResp;
 import org.jiegiser.train.business.service.DailyTrainService;
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
+import org.jiegiser.train.common.resp.CommonResp;
+import org.jiegiser.train.common.resp.PageResp;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 @RequestMapping("/admin/daily-train")
@@ -36,4 +38,9 @@ public class DailyTrainAdminController {
         return new CommonResp<>();
     }
 
+    @GetMapping("/gen-daily/{date}")
+    public CommonResp<Object> genDaily(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        dailyTrainService.genDaily(date);
+        return new CommonResp<>();
+    }
 }
