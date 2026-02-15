@@ -27,6 +27,7 @@
         <module>getway</module>
         <module>generator</module>
         <module>batch</module>
+        <module>business</module>
     </modules>
     <scm>
         <connection/>
