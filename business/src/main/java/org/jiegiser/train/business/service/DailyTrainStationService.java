@@ -82,6 +82,12 @@ public class DailyTrainStationService {
     public void delete(Long id) {
         dailyTrainStationMapper.deleteByPrimaryKey(id);
     }
+
+    /**
+     * 生成车站数据
+     * @param date
+     * @param trainCode
+     */
     @Transactional
     public void genDaily(Date date, String trainCode) {
         LOG.info("生成日期【{}】车次【{}】的车站信息开始", DateUtil.formatDate(date), trainCode);
@@ -100,14 +106,23 @@ public class DailyTrainStationService {
             return;
         }
 
-        for (TrainStation trainStation : stationList) {
+        // for (TrainStation trainStation : stationList) {
+        //     DateTime now = DateTime.now();
+        //     DailyTrainStation dailyTrainStation = BeanUtil.copyProperties(trainStation, DailyTrainStation.class);
+        //     dailyTrainStation.setId(SnowUtil.getSnowflakeNextId());
+        //     dailyTrainStation.setCreateTime(now);
+        //     dailyTrainStation.setUpdateTime(now);
+        //     dailyTrainStation.setDate(date);
+        //     dailyTrainStationMapper.insert(dailyTrainStation);
+        // }
+        for(TrainStation transactional : stationList) {
             DateTime now = DateTime.now();
-            DailyTrainStation dailyTrainStation = BeanUtil.copyProperties(trainStation, DailyTrainStation.class);
+            DailyTrainStation dailyTrainStation = BeanUtil.copyProperties(transactional, DailyTrainStation.class);
             dailyTrainStation.setId(SnowUtil.getSnowflakeNextId());
             dailyTrainStation.setCreateTime(now);
             dailyTrainStation.setUpdateTime(now);
             dailyTrainStation.setDate(date);
-            dailyTrainStationMapper.insert(dailyTrainStation);
+            dailyTrainStationMapper.insert(dailyTrainStation); // Insert daily train station
         }
         LOG.info("生成日期【{}】车次【{}】的车站信息结束", DateUtil.formatDate(date), trainCode);
     }
