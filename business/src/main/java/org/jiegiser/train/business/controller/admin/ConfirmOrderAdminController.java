@@ -1,10 +1,9 @@
 package org.jiegiser.train.business.controller.admin;
 
-import org.jiegiser.train.common.context.LoginMemberContext;
 import org.jiegiser.train.common.resp.CommonResp;
 import org.jiegiser.train.common.resp.PageResp;
 import org.jiegiser.train.business.req.ConfirmOrderQueryReq;
-import org.jiegiser.train.business.req.ConfirmOrderSaveReq;
+import org.jiegiser.train.business.req.ConfirmOrderDoReq;
 import org.jiegiser.train.business.resp.ConfirmOrderQueryResp;
 import org.jiegiser.train.business.service.ConfirmOrderService;
 import jakarta.annotation.Resource;
@@ -19,7 +18,7 @@ public class ConfirmOrderAdminController {
     private ConfirmOrderService confirmOrderService;
 
     @PostMapping("/save")
-    public CommonResp<Object> save(@Valid @RequestBody ConfirmOrderSaveReq req) {
+    public CommonResp<Object> save(@Valid @RequestBody ConfirmOrderDoReq req) {
         confirmOrderService.save(req);
         return new CommonResp<>();
     }
