@@ -9,19 +9,19 @@ import java.util.Date;
 public class MemberTicketReq {
 
     /**
-     * 乘客id
+     * 会员 id
      */
     @NotNull(message = "【会员id】不能为空")
     private Long memberId;
 
     /**
-     * 乘客id
+     * 乘客 id
      */
-    @NotNull(message = "【乘客id】不能为空")
+    @NotNull(message = "【乘客 id】不能为空")
     private Long passengerId;
 
     /**
-     * 乘客id
+     * 乘客名字
      */
     @NotNull(message = "【乘客名字】不能为空")
     private String passengerName;
