@@ -92,7 +92,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!-- 配置当前项目的jdk版本信息 -->
+            <!-- 配置当前项目的 jdk 版本信息 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
