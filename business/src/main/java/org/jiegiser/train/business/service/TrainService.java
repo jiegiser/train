@@ -20,6 +20,7 @@ import org.jiegiser.train.common.util.SnowUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -89,6 +90,9 @@ public class TrainService {
         trainMapper.deleteByPrimaryKey(id);
     }
 
+    // 通过开启事务，可以实现 MyBatis 的缓存，触发一级缓存
+    // 一级缓存可以减少重复的数据库查询
+    @Transactional
     public List<TrainQueryResp> queryAll() {
         List<Train> trainList = selectAll();
         // LOG.info("再查一次");

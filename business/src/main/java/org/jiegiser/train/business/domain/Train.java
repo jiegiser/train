@@ -1,7 +1,10 @@
 package org.jiegiser.train.business.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
+// 如果开启 MyBatis 的二级缓存，这个类需要实现 Serializable 接口
+// public class Train implements Serializable {
 public class Train {
     private Long id;
 
