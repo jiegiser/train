@@ -13,6 +13,6 @@ public class TestController {
     public String test() {
         String result = businessFeign.test();
         System.out.println("result:" + result);
-        return "batch test";
+        return "batch test " + result;
     }
 }
