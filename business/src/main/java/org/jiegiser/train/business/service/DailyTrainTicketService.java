@@ -72,10 +72,11 @@ public class DailyTrainTicketService {
      * 强制刷新缓存，将查询结果放到缓存中
      * 也就是说每次都会从数据库中查询然后放入缓存中
      * 可以结合 Cacheable 去读放入的缓存数据，当每次数据发生变化，比如增删改就调一次 CachePut 刷新缓存
+     * 两个 value 要保持一致 DailyTrainTicketService.queryList
      * @param req
      * @return
      */
-    @CachePut(value = "DailyTrainTicketService.queryList2")
+    @CachePut(value = "DailyTrainTicketService.queryList")
     public PageResp<DailyTrainTicketQueryResp> queryList2(DailyTrainTicketQueryReq req) {
         return queryList(req);
     }
