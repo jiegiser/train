@@ -1,9 +1,10 @@
-package com.jiawa.train.business.controller;
+package org.jiegiser.train.business.controller;
 
-import com.jiawa.train.business.resp.TrainQueryResp;
-import com.jiawa.train.business.service.TrainService;
-import com.jiawa.train.common.resp.CommonResp;
+
 import jakarta.annotation.Resource;
+import org.jiegiser.train.business.resp.TrainQueryResp;
+import org.jiegiser.train.business.service.TrainService;
+import org.jiegiser.train.common.resp.CommonResp;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ public class TrainController {
     private TrainService trainService;
 
     @GetMapping("/query-all")
-    public CommonResp<List<TrainQueryResp>> queryList() {
+    public CommonResp<List<TrainQueryResp>> queryList() throws InterruptedException {
         List<TrainQueryResp> list = trainService.queryAll();
         return new CommonResp<>(list);
     }

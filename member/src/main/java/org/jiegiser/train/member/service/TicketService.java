@@ -6,6 +6,7 @@ import cn.hutool.core.util.ObjUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
+import org.apache.seata.core.context.RootContext;
 import org.jiegiser.train.common.req.MemberTicketReq;
 import org.jiegiser.train.common.resp.PageResp;
 import org.jiegiser.train.common.util.SnowUtil;
@@ -34,7 +35,7 @@ public class TicketService {
      * @param req
      */
     public void save(MemberTicketReq req) throws Exception {
-        // LOG.info("seata全局事务ID save: {}", RootContext.getXID());
+        LOG.info("seata 全局事务 ID save: {}", RootContext.getXID());
         DateTime now = DateTime.now();
         Ticket ticket = BeanUtil.copyProperties(req, Ticket.class);
         ticket.setId(SnowUtil.getSnowflakeNextId());

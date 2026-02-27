@@ -1,5 +1,7 @@
 package org.jiegiser.train.common.controller;
 
+import cn.hutool.core.util.StrUtil;
+import org.apache.seata.core.context.RootContext;
 import org.jiegiser.train.common.exception.BusinessException;
 import org.jiegiser.train.common.resp.CommonResp;
 import org.slf4j.Logger;
@@ -25,16 +27,16 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public CommonResp exceptionHandler(Exception e) throws Exception {
-        // LOG.info("seata全局事务ID: {}", RootContext.getXID());
-        // // 如果是在一次全局事务里出异常了，就不要包装返回值，将异常抛给调用方，让调用方回滚事务
-        // if (StrUtil.isNotBlank(RootContext.getXID())) {
-        //     throw e;
-        // }
+        LOG.info("seata 全局事务 ID: {}", RootContext.getXID());
+        // 如果是在一次全局事务里出异常了，就不要包装返回值，将异常抛给调用方，让调用方回滚事务
+        if (StrUtil.isNotBlank(RootContext.getXID())) {
+            throw e;
+        }
         CommonResp commonResp = new CommonResp();
         LOG.error("系统异常：", e);
         commonResp.setSuccess(false);
         commonResp.setMessage("系统出现异常，请联系管理员");
-//        commonResp.setMessage(e.getMessage());
+        // commonResp.setMessage(e.getMessage());
         return commonResp;
     }
 

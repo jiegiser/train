@@ -1,10 +1,11 @@
-package com.jiawa.train.business.controller;
+package org.jiegiser.train.business.controller;
 
-import com.jiawa.train.business.req.DailyTrainStationQueryAllReq;
-import com.jiawa.train.business.resp.DailyTrainStationQueryResp;
-import com.jiawa.train.business.service.DailyTrainStationService;
-import com.jiawa.train.common.resp.CommonResp;
+
 import jakarta.validation.Valid;
+import org.jiegiser.train.business.req.DailyTrainStationQueryAllReq;
+import org.jiegiser.train.business.resp.DailyTrainStationQueryResp;
+import org.jiegiser.train.business.service.DailyTrainStationService;
+import org.jiegiser.train.common.resp.CommonResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

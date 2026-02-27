@@ -1,6 +1,8 @@
 package org.jiegiser.train.business.service;
 
 import jakarta.annotation.Resource;
+import org.apache.seata.core.context.RootContext;
+import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.jiegiser.train.business.domain.ConfirmOrder;
 import org.jiegiser.train.business.domain.DailyTrainSeat;
 import org.jiegiser.train.business.domain.DailyTrainTicket;
@@ -15,6 +17,7 @@ import org.jiegiser.train.common.resp.CommonResp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -44,9 +47,9 @@ public class AfterConfirmOrderService {
      *  更新确认订单为成功
      */
     // @Transactional
-    // @GlobalTransactional
+    @GlobalTransactional
     public void afterDoConfirm(DailyTrainTicket dailyTrainTicket, List<DailyTrainSeat> finalSeatList, List<ConfirmOrderTicketReq> tickets, ConfirmOrder confirmOrder) throws Exception {
-        // LOG.info("seata全局事务ID: {}", RootContext.getXID());
+        LOG.info("seata 全局事务ID: {}", RootContext.getXID());
         for (int j = 0; j < finalSeatList.size(); j++) {
             DailyTrainSeat dailyTrainSeat = finalSeatList.get(j);
             DailyTrainSeat seatForUpdate = new DailyTrainSeat();

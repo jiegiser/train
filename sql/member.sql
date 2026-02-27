@@ -19,6 +19,9 @@ create table `passenger` (
   index `member_id_index` (`member_id`)
 ) engine=innodb default charset=utf8mb4 comment='乘车人';
 
+/**
+  使用 seata 的时候要注意,如果使用 AT 模式,他会自己生成执行 SQL 的反 SQL 语句,有些关键词他不会添加反引号,所以要避免有特殊关键字作为列名
+ */
 drop table if exists `ticket`;
 create table `ticket` (
   `id` bigint not null comment 'id',
@@ -40,3 +43,17 @@ create table `ticket` (
   primary key (`id`),
   index `member_id_index` (`member_id`)
 ) engine=innodb default charset=utf8mb4 comment='车票';
+
+CREATE TABLE `undo_log` (
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                            `branch_id` bigint(20) NOT NULL,
+                            `xid` varchar(100) NOT NULL,
+                            `context` varchar(128) NOT NULL,
+                            `rollback_info` longblob NOT NULL,
+                            `log_status` int(11) NOT NULL,
+                            `log_created` datetime NOT NULL,
+                            `log_modified` datetime NOT NULL,
+                            `ext` varchar(100) DEFAULT NULL,
+                            PRIMARY KEY (`id`),
+                            UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

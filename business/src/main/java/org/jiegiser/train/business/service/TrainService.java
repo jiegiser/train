@@ -7,6 +7,8 @@ import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
+import org.apache.seata.core.context.RootContext;
+import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.jiegiser.train.business.domain.Train;
 import org.jiegiser.train.business.domain.TrainExample;
 import org.jiegiser.train.business.mapper.TrainMapper;
@@ -92,17 +94,20 @@ public class TrainService {
 
     // 通过开启事务，可以实现 MyBatis 的缓存，触发一级缓存
     // 一级缓存可以减少重复的数据库查询
-    @Transactional
-    public List<TrainQueryResp> queryAll() {
+    // @Transactional
+    @GlobalTransactional
+    public List<TrainQueryResp> queryAll() throws InterruptedException {
+        LOG.info("seata 全局事务ID: {}", RootContext.getXID());
         List<Train> trainList = selectAll();
         // LOG.info("再查一次");
         // trainList = selectAll();
         return BeanUtil.copyToList(trainList, TrainQueryResp.class);
     }
 
-    public List<Train> selectAll() {
+    public List<Train> selectAll() throws InterruptedException {
         TrainExample trainExample = new TrainExample();
         trainExample.setOrderByClause("code asc");
+        Thread.sleep(20000);
         return trainMapper.selectByExample(trainExample);
     }
 }

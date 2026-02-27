@@ -95,7 +95,7 @@ public class DailyTrainService {
      * 生成某日所有车次信息，包括车次、车站、车厢、座位
      * @param date
      */
-    public void genDaily(Date date) {
+    public void genDaily(Date date) throws InterruptedException {
         List<Train> trainList = trainService.selectAll();
         if (CollUtil.isEmpty(trainList)) {
             LOG.info("没有车次基础数据，任务结束");

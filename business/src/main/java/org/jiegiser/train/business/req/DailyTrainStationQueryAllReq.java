@@ -1,4 +1,4 @@
-package com.jiawa.train.business.req;
+package org.jiegiser.train.business.req;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

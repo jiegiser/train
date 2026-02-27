@@ -39,7 +39,7 @@ public class DailyTrainAdminController {
     }
 
     @GetMapping("/gen-daily/{date}")
-    public CommonResp<Object> genDaily(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+    public CommonResp<Object> genDaily(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) throws InterruptedException {
         dailyTrainService.genDaily(date);
         return new CommonResp<>();
     }

@@ -1,4 +1,4 @@
-package com.jiawa.train.business.resp;
+package org.jiegiser.train.business.resp;
 
 public class SeatSellResp {
 

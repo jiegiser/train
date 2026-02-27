@@ -7,12 +7,18 @@ import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
+import org.apache.seata.core.context.RootContext;
+import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.jiegiser.train.business.domain.Station;
 import org.jiegiser.train.business.domain.StationExample;
+import org.jiegiser.train.business.domain.Train;
+import org.jiegiser.train.business.domain.TrainExample;
 import org.jiegiser.train.business.mapper.StationMapper;
+import org.jiegiser.train.business.mapper.TrainMapper;
 import org.jiegiser.train.business.req.StationQueryReq;
 import org.jiegiser.train.business.req.StationSaveReq;
 import org.jiegiser.train.business.resp.StationQueryResp;
+import org.jiegiser.train.business.resp.TrainQueryResp;
 import org.jiegiser.train.common.exception.BusinessException;
 import org.jiegiser.train.common.exception.BusinessExceptionEnum;
 import org.jiegiser.train.common.resp.PageResp;
@@ -20,6 +26,7 @@ import org.jiegiser.train.common.util.SnowUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +37,9 @@ public class StationService {
 
     @Resource
     private StationMapper stationMapper;
+
+    @Resource
+    private TrainMapper trainMapper;
 
     public void save(StationSaveReq req) {
         DateTime now = DateTime.now();
@@ -86,5 +96,26 @@ public class StationService {
 
     public void delete(Long id) {
         stationMapper.deleteByPrimaryKey(id);
+    }
+
+    @GlobalTransactional
+    public List<StationQueryResp> queryAll() {
+        LOG.info("seata 全局事务ID: {}", RootContext.getXID());
+        StationExample stationExample = new StationExample();
+        // try {
+        //     Thread.sleep(20000);
+        // } catch (InterruptedException e) {
+        //     throw new RuntimeException(e);
+        // }
+        // if (1 == 1) {
+        //     try {
+        //         throw new Exception("测试异常11");
+        //     } catch (Exception e) {
+        //         throw new RuntimeException(e);
+        //     }
+        // }
+        stationExample.setOrderByClause("name_pinyin asc");
+        List<Station> stationList = stationMapper.selectByExample(stationExample);
+        return BeanUtil.copyToList(stationList, StationQueryResp.class);
     }
 }

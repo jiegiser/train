@@ -1,4 +1,4 @@
-package com.jiawa.train.business.req;
+package org.jiegiser.train.business.req;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
