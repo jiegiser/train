@@ -68,12 +68,28 @@ public class DailyTrainTicketService {
         return null;
     }
 
-    @CachePut(value = "DailyTrainTicketService.queryList")
+    /**
+     * 强制刷新缓存，将查询结果放到缓存中
+     * 也就是说每次都会从数据库中查询然后放入缓存中
+     * 可以结合 Cacheable 去读放入的缓存数据，当每次数据发生变化，比如增删改就调一次 CachePut 刷新缓存
+     * @param req
+     * @return
+     */
+    @CachePut(value = "DailyTrainTicketService.queryList2")
     public PageResp<DailyTrainTicketQueryResp> queryList2(DailyTrainTicketQueryReq req) {
         return queryList(req);
     }
 
-    // @Cacheable(value = "DailyTrainTicketService.queryList")
+    /**
+     * 要注意的是这个缓存会根据请求参数来，所以请求类的 hashCode 与 equals 里要一致
+     * 这里特别要注意如果是分页查询我们一般继承了 PageReq 类，那么这里要继承 PageReq 类，否则缓存会失效
+     * 也就是说 hashCode 与 equals 中也要包含 PageReq 类的区分，不然你的 pagenum 是不同的，但是继承的类没有做这个判断导致
+     * 不同的分页取得数据还是从缓存中获取的
+     * 使用了 Spring 内置的本地缓存可以解决 mybatis 二级缓存需要修改 mapper 的问题，但同样存在多个节点缓存不一致的问题
+     * @param req
+     * @return
+     */
+    @Cacheable(value = "DailyTrainTicketService.queryList")
     public PageResp<DailyTrainTicketQueryResp> queryList(DailyTrainTicketQueryReq req) {
         // 常见的缓存过期策略
         // TTL 超时时间
