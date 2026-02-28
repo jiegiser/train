@@ -1,6 +1,7 @@
 package org.jiegiser.train.business.service;
 
 import cn.hutool.core.date.DateTime;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.fastjson2.JSON;
 import jakarta.annotation.Resource;
 import org.jiegiser.train.business.domain.ConfirmOrder;
@@ -37,7 +38,7 @@ public class BeforeConfirmOrderService {
     @Resource
     private ConfirmOrderService confirmOrderService;
 
-    // @SentinelResource(value = "beforeDoConfirm", blockHandler = "beforeDoConfirmBlock")
+    @SentinelResource(value = "beforeDoConfirm", blockHandler = "beforeDoConfirmBlock")
     public Long beforeDoConfirm(ConfirmOrderDoReq req) {
         Long id = null;
         // 根据前端传值，加入排队人数

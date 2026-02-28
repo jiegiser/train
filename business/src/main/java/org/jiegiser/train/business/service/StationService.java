@@ -4,6 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
@@ -15,6 +17,7 @@ import org.jiegiser.train.business.domain.Train;
 import org.jiegiser.train.business.domain.TrainExample;
 import org.jiegiser.train.business.mapper.StationMapper;
 import org.jiegiser.train.business.mapper.TrainMapper;
+import org.jiegiser.train.business.req.ConfirmOrderDoReq;
 import org.jiegiser.train.business.req.StationQueryReq;
 import org.jiegiser.train.business.req.StationSaveReq;
 import org.jiegiser.train.business.resp.StationQueryResp;
@@ -99,6 +102,7 @@ public class StationService {
     }
 
     @GlobalTransactional
+    @SentinelResource(value = "stationQueryAll", blockHandler = "stationQueryAllBlock")
     public List<StationQueryResp> queryAll() {
         LOG.info("seata 全局事务ID: {}", RootContext.getXID());
         StationExample stationExample = new StationExample();
@@ -117,5 +121,14 @@ public class StationService {
         stationExample.setOrderByClause("name_pinyin asc");
         List<Station> stationList = stationMapper.selectByExample(stationExample);
         return BeanUtil.copyToList(stationList, StationQueryResp.class);
+    }
+
+    /**
+     * 降级方法，需包含限流方法的所有参数和 BlockException 参数
+     * @param e
+     */
+    public List<StationQueryResp> stationQueryAllBlock(BlockException e) {
+        LOG.info("查询所有站请求被限流：{}", e);
+        throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_FLOW_EXCEPTION);
     }
 }

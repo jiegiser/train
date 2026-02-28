@@ -3,10 +3,14 @@ package org.jiegiser.train.member.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
 import org.jiegiser.train.common.context.LoginMemberContext;
+import org.jiegiser.train.common.exception.BusinessException;
+import org.jiegiser.train.common.exception.BusinessExceptionEnum;
 import org.jiegiser.train.common.resp.PageResp;
 import org.jiegiser.train.common.util.SnowUtil;
 import org.jiegiser.train.member.domain.Member;
@@ -21,6 +25,7 @@ import org.jiegiser.train.member.req.PassengerSaveReq;
 import org.jiegiser.train.member.resp.PassengerQueryResp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -53,6 +58,8 @@ public class PassengerService {
         }
     }
 
+    @Async
+    @SentinelResource(value = "queryList", blockHandler = "queryListBlock")
     public PageResp<PassengerQueryResp> queryList(PassengerQueryReq req) {
         PassengerExample passengerExample = new PassengerExample();
         passengerExample.setOrderByClause("id desc");
@@ -76,6 +83,16 @@ public class PassengerService {
         pageResp.setTotal(pageInfo.getTotal());
         pageResp.setList(list);
         return pageResp;
+    }
+
+    /**
+     * 降级方法，需包含限流方法的所有参数和 BlockException 参数
+     * @param req
+     * @param e
+     */
+    public PageResp<PassengerQueryResp> queryListBlock(PassengerQueryReq req, BlockException e) {
+        LOG.info("查询请求被限流：{}", req);
+        throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_FLOW_EXCEPTION);
     }
 
     public void delete(Long id) {
