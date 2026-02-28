@@ -1,32 +1,30 @@
-
-GET http://127.0.0.1:9000/member/member/count
+GET http://localhost:9000/member/member/count
 Accept: application/json
 token: 123
-###
-
-POST http://127.0.0.1:9000/member/member/registry
-Content-Type: application/json
-
-{
-  "mobile": "13800138000"
-}
 
 ###
-
-POST http://127.0.0.1:9000/member/member/send-code
+POST http://localhost:9000/member/member/register
 Content-Type: application/x-www-form-urlencoded
 
-mobile = 18784678734
+mobile=12345678
 
 ###
-
-POST http://127.0.0.1:9000/member/member/login
+POST http://localhost:9000/member/member/send-code
 Content-Type: application/json
 
 {
-  "mobile": "13800138000",
+  "mobile": "13000000001"
+}
+
+###
+POST http://localhost:9000/member/member/login
+Content-Type: application/json
+
+{
+  "mobile": "13000000001",
   "code": "8888"
 }
+
 
 > {%
     client.log(JSON.stringify(response.body));

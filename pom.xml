@@ -128,12 +128,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <!--<dependency>-->
-            <!--    <groupId>org.redisson</groupId>-->
-            <!--    <artifactId>redisson-spring-boot-starter</artifactId>-->
-            <!--    <version>${redisson.version}</version>-->
-            <!--</dependency>-->
+            <!--至少 3.18.0 版本，才支持 spring boot 3 -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
 
             <!--<dependency>-->
             <!--    <groupId>com.baomidou</groupId>-->

@@ -107,7 +107,7 @@ public class TrainService {
     public List<Train> selectAll() throws InterruptedException {
         TrainExample trainExample = new TrainExample();
         trainExample.setOrderByClause("code asc");
-        Thread.sleep(20000);
+        // Thread.sleep(20000);
         return trainMapper.selectByExample(trainExample);
     }
 }
