@@ -34,6 +34,8 @@ public class ConfirmOrderController {
     private ConfirmOrderService confirmOrderService;
 
     // 接口的资源名称不要和接口路径一致，会导致限流后走不到降级方法中
+    // 需要加这个注解的一般是要拦截报错返回;
+    // 其次需要注意的是 blockHandler = "doConfirmBlock" 里面的 doConfirmBlock 要跟请求参数保持一致,并且返回的结果也要保持一致;
     @SentinelResource(value = "confirmOrderDo", blockHandler = "doConfirmBlock")
     @PostMapping("/do")
     public CommonResp<Object> doConfirm(@Valid @RequestBody ConfirmOrderDoReq req) {
