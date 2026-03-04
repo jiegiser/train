@@ -2,19 +2,25 @@ package org.jiegiser.train.business.service;
 
 import cn.hutool.core.date.DateTime;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.fastjson2.JSON;
 import jakarta.annotation.Resource;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.jiegiser.train.business.domain.ConfirmOrder;
 import org.jiegiser.train.business.dto.ConfirmOrderMQDto;
 import org.jiegiser.train.business.enums.ConfirmOrderStatusEnum;
+import org.jiegiser.train.business.enums.RocketMQTopicEnum;
 import org.jiegiser.train.business.mapper.ConfirmOrderMapper;
 import org.jiegiser.train.business.req.ConfirmOrderDoReq;
 import org.jiegiser.train.business.req.ConfirmOrderTicketReq;
 import org.jiegiser.train.common.context.LoginMemberContext;
+import org.jiegiser.train.common.exception.BusinessException;
+import org.jiegiser.train.common.exception.BusinessExceptionEnum;
 import org.jiegiser.train.common.util.SnowUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -28,12 +34,12 @@ public class BeforeConfirmOrderService {
     @Resource
     private ConfirmOrderMapper confirmOrderMapper;
 
-    // @Autowired
-    // private SkTokenService skTokenService;
+    @Autowired
+    private SkTokenService skTokenService;
 
-    // @Resource
+    @Resource
     // public RocketMQTemplate rocket
-    // public RocketMQTemplate rocketMQTemplate;
+    public RocketMQTemplate rocketMQTemplate;
 
     @Resource
     private ConfirmOrderService confirmOrderService;
@@ -81,9 +87,9 @@ public class BeforeConfirmOrderService {
             confirmOrderMQDto.setTrainCode(req.getTrainCode());
             confirmOrderMQDto.setLogId(MDC.get("LOG_ID"));
             String reqJson = JSON.toJSONString(confirmOrderMQDto);
-            // LOG.info("排队购票，发送mq开始，消息：{}", reqJson);
-            // rocketMQTemplate.convertAndSend(RocketMQTopicEnum.CONFIRM_ORDER.getCode(), reqJson);
-            // LOG.info("排队购票，发送mq结束");
+            // LOG.info("排队购票，发送 mq 开始，消息：{}", reqJson);
+            rocketMQTemplate.convertAndSend(RocketMQTopicEnum.CONFIRM_ORDER.getCode(), reqJson);
+            // LOG.info("排队购票，发送 mq 结束");
             confirmOrderService.doConfirm(confirmOrderMQDto);
             id = confirmOrder.getId();
         }
@@ -91,12 +97,12 @@ public class BeforeConfirmOrderService {
     }
 
     /**
-     * 降级方法，需包含限流方法的所有参数和BlockException参数
+     * 降级方法，需包含限流方法的所有参数和 BlockException 参数
      * @param req
      * @param e
      */
-    // public void beforeDoConfirmBlock(ConfirmOrderDoReq req, BlockException e) {
-    //     LOG.info("购票请求被限流：{}", req);
-    //     throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_FLOW_EXCEPTION);
-    // }
+    public void beforeDoConfirmBlock(ConfirmOrderDoReq req, BlockException e) {
+        LOG.info("购票请求被限流：{}", req);
+        throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_FLOW_EXCEPTION);
+    }
 }

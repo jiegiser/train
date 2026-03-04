@@ -50,6 +50,8 @@
         <redisson.version>3.52.0</redisson.version>
         <!-- 服务保障相关 -->
         <lock4j.version>2.2.7</lock4j.version>
+        <!-- 消息队列 -->
+        <rocketmq-spring.version>2.3.5</rocketmq-spring.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -160,6 +162,11 @@
                 </exclusions>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq-spring.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <!-- 使用 huawei / aliyun 的 Maven 源，提升下载速度 -->

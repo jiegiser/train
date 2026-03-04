@@ -188,7 +188,9 @@ public class ConfirmOrderService {
             } else {
                 // 只是没抢到锁，并不知道票抢完了没，所以提示稍候再试
                 LOG.info("很遗憾，没抢到锁");
-                throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_LOCK_FAIL);
+                // throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_LOCK_FAIL);
+                LOG.info("没抢到锁，有其它消费线程正在出票，不做任何处理");
+                return;
             }
 
             while (true) {
@@ -598,7 +600,7 @@ public class ConfirmOrderService {
         ConfirmOrder confirmOrder = confirmOrderMapper.selectByPrimaryKey(id);
         ConfirmOrderStatusEnum statusEnum = EnumUtil.getBy(ConfirmOrderStatusEnum::getCode, confirmOrder.getStatus());
         int result = switch (statusEnum) {
-            case PENDING -> 0; // 排队0
+            case PENDING -> 0; // 排队 0
             case SUCCESS -> -1; // 成功
             case FAILURE -> -2; // 失败
             case EMPTY -> -3; // 无票
