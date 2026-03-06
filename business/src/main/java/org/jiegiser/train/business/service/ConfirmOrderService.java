@@ -123,10 +123,13 @@ public class ConfirmOrderService {
      * 2. 在多节点的情况下,还是会出现超卖
      * @param dto
      */
-    @Async
+    // 开启异步线程：当外部类来调用方法的时候，就会开启一个线程执行方法
+    // 这个注解是需要外部的方法来调用，才会开启一个线程执行方法，同一个类的方法，不能开启线程执行方法；他跟事务是一样的
+    // @Async
     @SentinelResource(value = "doConfirm", blockHandler = "doConfirmBlock")
     // public synchronized void doConfirm(ConfirmOrderMQDto dto) {
     public void doConfirm(ConfirmOrderMQDto dto) {
+        // 会开启另外一个线程去执行，所以这里要把上一个进程的 log id 放到当前线程的 MDC 中
         MDC.put("LOG_ID", dto.getLogId());
         LOG.info("异步出票开始：{}", dto);
         // 校验令牌余量
