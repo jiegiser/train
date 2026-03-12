@@ -45,7 +45,7 @@ public class JwtUtil {
         LOG.info("开始JWT token校验，token：{}", token);
         GlobalBouncyCastleProvider.setUseBouncyCastle(false);
         JWT jwt = JWTUtil.parseToken(token).setKey(key.getBytes());
-        // validate包含了verify
+        // validate 包含了 verify
         boolean validate = jwt.validate(0);
         LOG.info("JWT token校验结果：{}", validate);
         return validate;
@@ -58,7 +58,7 @@ public class JwtUtil {
         payloads.remove(JWTPayload.ISSUED_AT);
         payloads.remove(JWTPayload.EXPIRES_AT);
         payloads.remove(JWTPayload.NOT_BEFORE);
-        LOG.info("根据token获取原始内容：{}", payloads);
+        LOG.info("根据 token 获取原始内容：{}", payloads);
         return payloads;
     }
 

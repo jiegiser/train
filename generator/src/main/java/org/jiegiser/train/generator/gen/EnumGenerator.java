@@ -24,10 +24,10 @@ public class EnumGenerator {
         long begin = System.currentTimeMillis();
         try {
             toJson(PassengerTypeEnum.class, bufferObject, bufferArray);
-//            toJson(TrainTypeEnum.class, bufferObject, bufferArray);
-//            toJson(SeatTypeEnum.class, bufferObject, bufferArray);
-//            toJson(SeatColEnum.class, bufferObject, bufferArray);
-//            toJson(ConfirmOrderStatusEnum.class, bufferObject, bufferArray);
+           // toJson(TrainTypeEnum.class, bufferObject, bufferArray);
+           // toJson(SeatTypeEnum.class, bufferObject, bufferArray);
+           // toJson(SeatColEnum.class, bufferObject, bufferArray);
+           // toJson(ConfirmOrderStatusEnum.class, bufferObject, bufferArray);
 
             StringBuffer buffer = bufferObject.append("\r\n").append(bufferArray);
             writeJs(buffer);
@@ -39,13 +39,13 @@ public class EnumGenerator {
     }
 
     private static void toJson(Class clazz, StringBuffer bufferObject, StringBuffer bufferArray) throws Exception {
-        // enumConst：将YesNoEnum变成YES_NO
+        // enumConst：将 YesNoEnum 变成 YES_NO
         String enumConst = StrUtil.toUnderlineCase(clazz.getSimpleName())
                 .toUpperCase().replace("_ENUM", "");
         Object[] objects = clazz.getEnumConstants();
         Method name = clazz.getMethod("name");
 
-        // 排除枚举属性和 $VALUES，只获取 code desc等
+        // 排除枚举属性和 $VALUES，只获取 code desc 等
         List<Field> targetFields = new ArrayList<>();
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
@@ -61,7 +61,7 @@ public class EnumGenerator {
             Object obj = objects[i];
             bufferObject.append(name.invoke(obj)).append(":");
 
-            // 将一个枚举值转成JSON对象字符串
+            // 将一个枚举值转成 JSON 对象字符串
             formatJsonObj(bufferObject, targetFields, clazz, obj);
 
             if (i < objects.length - 1) {
@@ -86,7 +86,7 @@ public class EnumGenerator {
     }
 
     /**
-     * 将一个枚举值转成JSON对象字符串
+     * 将一个枚举值转成 JSON 对象字符串
      * 比如：SeatColEnum.YDZ_A("A", "A", "1")
      * 转成：{code:"A",desc:"A",type:"1"}
      */
